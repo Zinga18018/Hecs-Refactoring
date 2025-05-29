@@ -1,0 +1,43 @@
+ollama:
+  host: "localhost"
+  port: 11434
+  timeout: 30
+  base_url: "http://localhost:11434"
+  model: "codellama:7b"
+
+# Model settings
+model:
+  name: "codellama:7b"
+  temperature: 0.1
+  max_tokens: 2048
+  top_p: 0.9
+
+# Prompt templates
+prompts:
+  analysis: |
+    Analyze this HECS (Hierarchical Entity Component System) code for performance issues and optimization opportunities:
+    
+    {code}
+    
+    Focus on:
+    1. Entity-component access patterns
+    2. System iteration efficiency
+    3. Memory layout optimization
+    4. Batch processing opportunities
+    
+    Provide specific, actionable suggestions.
+  
+  comparison: |
+    Compare these two HECS code implementations and explain the performance differences:
+    
+    Original:
+    {original_code}
+    
+    Refactored:
+    {refactored_code}
+    
+    Analyze the improvements in terms of:
+    1. Execution efficiency
+    2. Memory usage
+    3. Code maintainability
+    4. HECS best practices

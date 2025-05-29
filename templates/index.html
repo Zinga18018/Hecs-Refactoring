@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HECS Refactoring Tool - Advanced Code Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/clike/clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-code"></i>
+                    <h1>HECS Refactoring Tool</h1>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalAnalyses">0</span>
+                        <span class="stat-label">Analyses</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="issuesFound">0</span>
+                        <span class="stat-label">Issues Found</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="improvementScore">0%</span>
+                        <span class="stat-label">Improvement</span>
+                    </div>
+                </div>
+            </div>
+            <p class="subtitle">Advanced code analysis with AI-powered suggestions and real-time visualizations</p>
+        </header>
+
+        <div class="main-content">
+            <div class="editor-section">
+                <div class="editor-header">
+                    <div class="editor-title">
+                        <i class="fas fa-edit"></i>
+                        <h3>Code Editor</h3>
+                    </div>
+                    <div class="controls">
+                        <div class="control-group">
+                            <label for="languageSelect">Language:</label>
+                            <select id="languageSelect" class="modern-select">
+                                <option value="python">🐍 Python</option>
+                                <option value="javascript">🟨 JavaScript</option>
+                                <option value="java">☕ Java</option>
+                                <option value="cpp">⚡ C++</option>
+                            </select>
+                        </div>
+                        <div class="button-group">
+                            <button id="analyzeBtn" class="btn btn-primary">
+                                <i class="fas fa-search"></i> Analyze
+                            </button>
+                            <button id="refactorBtn" class="btn btn-secondary">
+                                <i class="fas fa-magic"></i> Refactor
+                            </button>
+                            <button id="clearBtn" class="btn btn-danger">
+                                <i class="fas fa-trash"></i> Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="editor-container">
+                    <textarea id="codeEditor"></textarea>
+                    <div class="editor-overlay">
+                        <div class="loading-spinner" id="loadingSpinner">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <span>Analyzing code...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="editor-footer">
+                    <div class="code-stats">
+                        <span id="lineCount">Lines: 0</span>
+                        <span id="charCount">Characters: 0</span>
+                        <span id="complexity">Complexity: Low</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-section">
+                <div class="tabs-container">
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="analysis">
+                            <i class="fas fa-chart-line"></i> Analysis
+                        </button>
+                        <button class="tab-btn" data-tab="suggestions">
+                            <i class="fas fa-lightbulb"></i> AI Suggestions
+                        </button>
+                        <button class="tab-btn" data-tab="refactored">
+                            <i class="fas fa-code"></i> Refactored
+                        </button>
+                        <button class="tab-btn" data-tab="metrics">
+                            <i class="fas fa-chart-pie"></i> Metrics
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tab-content">
+                    <div class="tab-panel active" id="analysis-panel">
+                        <div class="analysis-grid">
+                            <div class="analysis-card">
+                                <div class="card-header">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <h4>Issues Found</h4>
+                                </div>
+                                <div id="issuesList" class="card-content">
+                                    <p class="placeholder">No issues detected</p>
+                                </div>
+                            </div>
+                            <div class="analysis-card">
+                                <div class="card-header">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                    <h4>Performance Hotspots</h4>
+                                </div>
+                                <div id="hotspotsList" class="card-content">
+                                    <p class="placeholder">No hotspots detected</p>
+                                </div>
+                            </div>
+                            <div class="analysis-card">
+                                <div class="card-header">
+                                    <i class="fas fa-bug"></i>
+                                    <h4>Code Smells</h4>
+                                </div>
+                                <div id="smellsList" class="card-content">
+                                    <p class="placeholder">No code smells detected</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-panel" id="suggestions-panel">
+                        <div class="suggestions-container">
+                            <div id="aiSuggestions" class="suggestions-content">
+                                <div class="empty-state">
+                                    <i class="fas fa-robot"></i>
+                                    <h3>AI-Powered Suggestions</h3>
+                                    <p>Run analysis to get intelligent refactoring suggestions</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-panel" id="refactored-panel">
+                        <div class="refactored-container">
+                            <div class="refactored-header">
+                                <h4>Refactored Code</h4>
+                                <button id="copyRefactoredBtn" class="btn btn-outline">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                            <div id="refactoredCode" class="code-display">
+                                <div class="empty-state">
+                                    <i class="fas fa-magic"></i>
+                                    <h3>Refactored Code</h3>
+                                    <p>Your optimized code will appear here</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-panel" id="metrics-panel">
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <h4>Complexity Analysis</h4>
+                                <canvas id="complexityChart"></canvas>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Performance Score</h4>
+                                <div class="score-display">
+                                    <div class="score-circle" id="performanceScore">
+                                        <span class="score-value">0</span>
+                                        <span class="score-label">Score</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Issue Distribution</h4>
+                                <canvas id="issueChart"></canvas>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Code Quality Trends</h4>
+                                <canvas id="trendChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="status-bar">
+            <div class="status-left">
+                <span id="statusText">Ready for analysis</span>
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+            <div class="status-right">
+                <span id="connectionStatus" class="status-indicator connected">
+                    <i class="fas fa-circle"></i> Connected
+                </span>
+                <span id="lastUpdate">Never</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

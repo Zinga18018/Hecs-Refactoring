@@ -1,0 +1,28 @@
+# Core dependencies
+ast-tools==0.1.0
+astor==0.8.1
+networkx==3.1
+psutil==5.9.5
+requests==2.31.0
+PyYAML==6.0
+
+# Language parsers - Updated to available versions
+tree-sitter==0.20.1
+tree-sitter-python==0.23.6
+tree-sitter-cpp==0.22.0
+tree-sitter-rust==0.21.2
+
+# Performance and benchmarking
+memory-profiler==0.61.0
+line-profiler==4.0.2
+
+# Report generation
+Jinja2==3.1.2
+matplotlib==3.7.1
+seaborn==0.12.2
+
+# Development tools
+pytest==7.4.0
+black==23.7.0
+flake8==6.0.0
+mypy==1.5.1

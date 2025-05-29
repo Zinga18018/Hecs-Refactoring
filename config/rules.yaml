@@ -1,0 +1,51 @@
+refactoring_rules:
+  entity_optimization:
+    - rule: "batch_entity_creation"
+      description: "Convert individual entity creation to batch operations"
+      priority: high
+      pattern: "for.*create_entity"
+      replacement: "batch_create_entities"
+    
+    - rule: "cache_entity_lookups"
+      description: "Cache frequently accessed entities"
+      priority: medium
+      pattern: "get_entity.*loop"
+      replacement: "cached_entity_lookup"
+  
+  component_optimization:
+    - rule: "component_pooling"
+      description: "Use object pooling for frequently created/destroyed components"
+      priority: high
+      pattern: "new.*Component.*delete"
+      replacement: "pool_get_component"
+    
+    - rule: "data_locality"
+      description: "Improve data locality for component access"
+      priority: medium
+      pattern: "scattered_component_access"
+      replacement: "contiguous_component_access"
+  
+  system_optimization:
+    - rule: "parallel_systems"
+      description: "Parallelize independent systems"
+      priority: high
+      pattern: "sequential_system_update"
+      replacement: "parallel_system_update"
+    
+    - rule: "system_scheduling"
+      description: "Optimize system update scheduling"
+      priority: medium
+      pattern: "fixed_system_order"
+      replacement: "dependency_based_scheduling"
+
+performance_thresholds:
+  execution_time_warning: 100  # milliseconds
+  memory_usage_warning: 1024  # MB
+  nested_loop_depth: 3
+  component_access_frequency: 1000  # per second
+
+ai_integration:
+  confidence_threshold: 0.7
+  max_suggestions_per_chunk: 5
+  chunk_size_lines: 50
+  context_window: 10  # lines before/after
