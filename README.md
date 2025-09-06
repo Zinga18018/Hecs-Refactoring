@@ -1,4 +1,4 @@
-# 🚀 HECS Refactoring Tool
+# HECS Refactoring Tool
 
 > **Advanced AI-Powered Code Analysis & Refactoring Platform**
 
