@@ -6,22 +6,22 @@ A sophisticated web-based tool that combines static code analysis with AI-powere
 
 ![HECS Refactoring Tool](Screenshots/{08588AA7-82D4-4309-AB75-0A50A1C0DA1E}.png)
 
-## ✨ Key Features
+##  Key Features
 
-### 🔍 **Intelligent Code Analysis**
+###  **Intelligent Code Analysis**
 - **Real-time complexity analysis** with visual metrics
 - **Performance bottleneck detection** using AST parsing
 - **Security vulnerability scanning**
 - **Code smell identification** and quality assessment
 - **HECS pattern recognition** for entity-component systems
 
-### 🤖 **AI-Powered Suggestions**
+### **AI-Powered Suggestions**
 - **Ollama integration** for intelligent refactoring recommendations
 - **Context-aware suggestions** based on code analysis
 - **Step-by-step improvement guides**
 - **Best practices enforcement**
 
-### 📊 **Visual Metrics Dashboard**
+### **Visual Metrics Dashboard**
 ![Metrics Dashboard](Screenshots/{09105961-480C-42A8-93C0-E546DA932967}.png)
 
 - **Performance Score Visualization** with interactive charts
@@ -29,7 +29,7 @@ A sophisticated web-based tool that combines static code analysis with AI-powere
 - **Issue Distribution** across different categories
 - **Real-time code statistics** (lines, characters, complexity)
 
-### ⚡ **Automated Refactoring**
+###  **Automated Refactoring**
 ![Refactored Code](Screenshots/{4E98D3BF-F9CC-4C6D-A988-CE088ECEFCFF}.png)
 
 - **One-click code optimization**
@@ -38,7 +38,7 @@ A sophisticated web-based tool that combines static code analysis with AI-powere
 - **Performance pattern improvements**
 - **Memory leak prevention**
 
-### 🎯 **Smart Suggestions Panel**
+###  **Smart Suggestions Panel**
 ![AI Suggestions](Screenshots/{51322B55-2073-4B41-A5B0-1D900960C351}.png)
 
 - **Priority-based recommendations**
@@ -47,7 +47,7 @@ A sophisticated web-based tool that combines static code analysis with AI-powere
 - **Code location pinpointing**
 - **Expected improvement metrics**
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 - **Backend**: Python Flask + SocketIO for real-time communication
 - **Frontend**: Modern JavaScript with CodeMirror editor
@@ -56,7 +56,7 @@ A sophisticated web-based tool that combines static code analysis with AI-powere
 - **Visualization**: Chart.js for interactive metrics
 - **Styling**: Modern CSS with responsive design
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Python 3.8+
